@@ -64,7 +64,7 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { localProperties.load(it) }
 }
-fun getSecret(key: String, defaultValue: String = ""): String {
+fun getSecret(key: String, defaultValue: String = "DEMO_KEY"): String {
     return localProperties.getProperty(key)
         ?: providers.gradleProperty(key).orNull
         ?: System.getenv(key)
