@@ -3,9 +3,9 @@ import SwiftUI
 
 
 enum AppTab: Int, CaseIterable {
-    case home = 1
-    case search = 2
-    case profile = 3
+    case random = 1
+    case byDate = 2
+    case saved = 3
 }
 
 // MARK: - AppRoute Extensions
@@ -14,13 +14,13 @@ extension AppRoute {
     var associatedTab: AppTab {
         switch self {
         case is RandomPhoto:
-            return .home
+            return .random
         case is ByDates:
-            return .search
+            return .byDate
         case is Saved:
-            return .profile
+            return .saved
         default:
-            return .home
+            return .random
         }
     }
 
@@ -73,7 +73,7 @@ class TabNavigationCoordinator {
 @available(iOS 26.0, *)
 @Observable
 class AppNavigationCoordinator {
-    var selectedTab: AppTab = .home
+    var selectedTab: AppTab = .random
     let tabCoordinators: [AppTab: TabNavigationCoordinator]
     init() {
         self.tabCoordinators = Dictionary(
@@ -140,11 +140,11 @@ extension AppNavigationCoordinator {
 
 func topLevelRoute(for tab: AppTab) -> AppRoute {
     switch tab {
-    case .home:
+    case .random:
         RandomPhoto()
-    case .search:
+    case .byDate:
         ByDates()
-    case .profile:
+    case .saved:
         Saved()
     }
 }

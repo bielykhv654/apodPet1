@@ -85,24 +85,24 @@ struct NativeNavContentView: View {
     var body: some View {
         Group {
                 TabView(selection: $appCoordinator.selectedTab) {
-                    Tab(String(localized: "random"), systemImage: "die.face.5", value: AppTab.home) {
+                    Tab(String(localized: "random"), systemImage: "die.face.5", value: AppTab.random) {
                         TabContentView(
                             topLevelRoute: RandomPhoto(),
-                            coordinator: appCoordinator.coordinator(for: .home),
+                            coordinator: appCoordinator.coordinator(for: .random),
                             appCoordinator: appCoordinator,
                         )
                     }
-                    Tab(String(localized: "byDate"), systemImage: "calendar.badge.clock", value: AppTab.search) {
+                    Tab(String(localized: "byDate"), systemImage: "calendar.badge.clock", value: AppTab.byDate) {
                         TabContentView(
                             topLevelRoute: ByDates(),
-                            coordinator: appCoordinator.coordinator(for: .search),
+                            coordinator: appCoordinator.coordinator(for: .byDate),
                             appCoordinator: appCoordinator,
                         )
                     }
-                    Tab(String(localized: "saved"), systemImage: "heart", value: AppTab.profile) {
+                    Tab(String(localized: "saved"), systemImage: "heart", value: AppTab.saved) {
                         TabContentView(
                             topLevelRoute: Saved(),
-                            coordinator: appCoordinator.coordinator(for: .profile),
+                            coordinator: appCoordinator.coordinator(for: .saved),
                             appCoordinator: appCoordinator,
                         )
                     }
