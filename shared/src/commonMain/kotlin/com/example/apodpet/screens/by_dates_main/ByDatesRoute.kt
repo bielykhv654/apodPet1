@@ -32,7 +32,9 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import apodpet.shared.generated.resources.Res
 import apodpet.shared.generated.resources.btn_retry
+import com.example.apodpet.PhotoDetails
 import com.example.apodpet.app_routes.PhotoDetails
+import com.example.apodpet.toApodPhoto
 import com.example.apodpet.screens.by_dates_main.integration.ByDatesStore
 import com.example.apodpet.ui.common.LoadingAnimation
 import com.example.apodpet.ui.common.NasaPhotoCard
@@ -122,26 +124,10 @@ private fun ByDatesScreen(
                         val isSaved = state.savedIds.contains(id)
 
                         NasaPhotoCard(
-                            title = photo.title ?: "NASA APOD",
-                            date = photo.date ?: "",
-                            explanation = photo.explanation ?: "",
-                            imageUrl = photo.hdurl ?: photo.url ?: "",
-                            copyright = photo.copyright,
-                            mediaType = photo.mediaType,
+                            photo = photo.toApodPhoto(),
                             isSaved = isSaved,
                             onToggleSave = { onIntent(ByDatesStore.ByDatesIntent.ToggleSave(photo)) },
-                            onPhotoClick = {
-                                openPhotoDetails(
-                                    PhotoDetails(
-                                        title = photo.title ?: "NASA APOD",
-                                        explanation = photo.explanation ?: "",
-                                        imageUrl = photo.hdurl ?: photo.url ?: "",
-                                        date = photo.date ?: "",
-                                        copyright = photo.copyright,
-                                        mediaType = photo.mediaType
-                                    )
-                                )
-                            }
+                            onPhotoClick = { openPhotoDetails(PhotoDetails(photo)) }
                         )
                     }
                 }

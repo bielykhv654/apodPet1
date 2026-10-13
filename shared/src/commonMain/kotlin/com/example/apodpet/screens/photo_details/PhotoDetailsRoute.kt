@@ -44,6 +44,8 @@ fun PhotoDetailsRoute(
     details: PhotoDetails,
     onBack: () -> Unit
 ) {
+    val photo = details.photo
+
     SpaceBackground {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -61,9 +63,9 @@ fun PhotoDetailsRoute(
                     contentAlignment = Alignment.Center
                 ) {
                     NasaMediaView(
-                        imageUrl = details.imageUrl,
-                        title = details.title,
-                        mediaType = details.mediaType,
+                        imageUrl = photo.imageUrl,
+                        title = photo.title,
+                        mediaType = photo.mediaType,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Fit
                     )
@@ -99,7 +101,7 @@ fun PhotoDetailsRoute(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = details.title,
+                            text = photo.title,
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -116,20 +118,20 @@ fun PhotoDetailsRoute(
                                 color = MaterialTheme.colorScheme.primaryContainer
                             ) {
                                 Text(
-                                    text = "📅 ${details.date}",
+                                    text = "📅 ${photo.date}",
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                                 )
                             }
 
-                            if (!details.copyright.isNullOrBlank()) {
+                            if (!photo.copyright.isNullOrBlank()) {
                                 Surface(
                                     shape = RoundedCornerShape(12.dp),
                                     color = MaterialTheme.colorScheme.secondaryContainer
                                 ) {
                                     Text(
-                                        text = "© ${details.copyright}",
+                                        text = "© ${photo.copyright}",
                                         style = MaterialTheme.typography.labelMedium,
                                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
@@ -162,7 +164,7 @@ fun PhotoDetailsRoute(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            text = details.explanation,
+                            text = photo.explanation,
                             style = MaterialTheme.typography.bodyLarge,
                             lineHeight = 24.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant

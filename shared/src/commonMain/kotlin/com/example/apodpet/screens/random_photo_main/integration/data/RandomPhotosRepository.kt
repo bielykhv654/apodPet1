@@ -5,6 +5,7 @@ import com.example.apodpet.getErrorType
 import database.NasaPhotoDao
 import database.NasaPhotoDto
 import database.NasaPhotoEntity
+import database.cleaned
 import database.currentTimeMillis
 import kotlinx.coroutines.flow.Flow
 import network.AppClient
@@ -30,7 +31,7 @@ class RandomPhotosRepositoryImpl(
 
     override suspend fun getRandomPhotos(count: Int): RandomPhotosResult {
         return when (val res = appClient.getNasaRandomPhotos(count)) {
-            is Result.Success -> RandomPhotosResult.Success(res.data)
+            is Result.Success -> RandomPhotosResult.Success(res.data.map { it.cleaned() })
             is Result.Error -> RandomPhotosResult.Error(getErrorType(res.error))
         }
     }

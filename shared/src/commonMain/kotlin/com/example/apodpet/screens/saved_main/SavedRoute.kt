@@ -26,7 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.apodpet.PhotoDetails
 import com.example.apodpet.app_routes.PhotoDetails
+import com.example.apodpet.toApodPhoto
 import com.example.apodpet.screens.saved_main.integration.SavedStore
 import com.example.apodpet.ui.common.NasaPhotoCard
 import com.example.apodpet.ui.common.SpaceBackground
@@ -121,26 +123,10 @@ private fun SavedScreen(
                     key = { it.id }
                 ) { photo ->
                     NasaPhotoCard(
-                        title = photo.title,
-                        date = photo.date,
-                        explanation = photo.explanation,
-                        imageUrl = photo.url,
-                        copyright = photo.copyright,
-                        mediaType = photo.mediaType,
+                        photo = photo.toApodPhoto(),
                         isSaved = true,
                         onDelete = { onIntent(SavedStore.SavedIntent.DeletePhoto(photo.id)) },
-                        onPhotoClick = {
-                            openPhotoDetails(
-                                PhotoDetails(
-                                    title = photo.title,
-                                    explanation = photo.explanation,
-                                    imageUrl = photo.url,
-                                    date = photo.date,
-                                    copyright = photo.copyright,
-                                    mediaType = photo.mediaType
-                                )
-                            )
-                        }
+                        onPhotoClick = { openPhotoDetails(PhotoDetails(photo)) }
                     )
                 }
             }

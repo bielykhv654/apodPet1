@@ -29,14 +29,19 @@ data object ByDates : TopLevelRoute
 data object Saved : TopLevelRoute
 
 @Serializable
-@SerialName("PhotoDetails")
-data class PhotoDetails(
+data class ApodPhoto(
     val title: String = "",
     val explanation: String = "",
     val imageUrl: String = "",
     val date: String = "",
     val copyright: String? = null,
     val mediaType: String? = null,
+)
+
+@Serializable
+@SerialName("PhotoDetails")
+data class PhotoDetails(
+    val photo: ApodPhoto
 ) : AppRoute {
     override val topLevelRoute: TopLevelRoute = RandomPhoto
 }

@@ -6,6 +6,7 @@ import com.example.apodpet.getErrorType
 import database.NasaPhotoDao
 import database.NasaPhotoDto
 import database.NasaPhotoEntity
+import database.cleaned
 import database.currentTimeMillis
 import database.getTodayDateString
 import database.minusDays
@@ -66,7 +67,7 @@ class ByDatesNasaRepositoryImpl(
 
         return when (val res = appClient.getNasaPhotosByRange(startDate, endDate)) {
             is Result.Success -> {
-                val filtered = res.data.reversed().filter { it.url != null }
+                val filtered = res.data.reversed().filter { it.url != null }.map { it.cleaned() }
                 val nextMinDate = if (startDate > APOD_START_DATE) {
                     minusDays(startDate, 1)
                 } else {

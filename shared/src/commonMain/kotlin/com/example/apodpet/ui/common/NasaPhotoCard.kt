@@ -34,15 +34,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.apodpet.app_routes.ApodPhoto
 
 @Composable
 fun NasaPhotoCard(
-    title: String,
-    date: String,
-    explanation: String,
-    imageUrl: String,
-    copyright: String? = null,
-    mediaType: String? = null,
+    photo: ApodPhoto,
     isSaved: Boolean = false,
     onToggleSave: (() -> Unit)? = null,
     onDelete: (() -> Unit)? = null,
@@ -75,9 +71,9 @@ fun NasaPhotoCard(
                 contentAlignment = Alignment.Center
             ) {
                 NasaMediaView(
-                    imageUrl = imageUrl,
-                    title = title,
-                    mediaType = mediaType,
+                    imageUrl = photo.imageUrl,
+                    title = photo.title,
+                    mediaType = photo.mediaType,
                     modifier = Modifier.fillMaxWidth().height(240.dp),
                     contentScale = ContentScale.Crop
                 )
@@ -102,7 +98,7 @@ fun NasaPhotoCard(
                     color = Color.Black.copy(alpha = 0.65f)
                 ) {
                     Text(
-                        text = "📅 $date",
+                        text = "📅 ${photo.date}",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -152,7 +148,7 @@ fun NasaPhotoCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = title,
+                    text = photo.title,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     maxLines = if (isExpanded) 10 else 2,
@@ -160,10 +156,10 @@ fun NasaPhotoCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                if (!copyright.isNullOrBlank()) {
+                if (!photo.copyright.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "© $copyright",
+                        text = "© ${photo.copyright}",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -173,7 +169,7 @@ fun NasaPhotoCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = explanation,
+                text = photo.explanation,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = if (isExpanded) Int.MAX_VALUE else 3,
                 overflow = TextOverflow.Ellipsis,

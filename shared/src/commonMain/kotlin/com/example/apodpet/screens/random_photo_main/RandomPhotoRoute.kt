@@ -23,7 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.apodpet.PhotoDetails
 import com.example.apodpet.app_routes.PhotoDetails
+import com.example.apodpet.toApodPhoto
 import com.example.apodpet.screens.random_photo_main.integration.RandomPhotoStore
 import com.example.apodpet.ui.common.NasaPhotoCard
 import com.example.apodpet.ui.common.ShowNetworkResponseNotification
@@ -114,26 +116,10 @@ private fun RandomPhotoScreen(
                 val isSaved = state.savedIds.contains(id)
 
                 NasaPhotoCard(
-                    title = photo.title ?: "NASA APOD",
-                    date = photo.date ?: "",
-                    explanation = photo.explanation ?: "",
-                    imageUrl = photo.hdurl ?: photo.url ?: "",
-                    copyright = photo.copyright,
-                    mediaType = photo.mediaType,
+                    photo = photo.toApodPhoto(),
                     isSaved = isSaved,
                     onToggleSave = { onIntent(RandomPhotoStore.RandomPhotoIntent.ToggleSave(photo)) },
-                    onPhotoClick = {
-                        openPhotoDetails(
-                            PhotoDetails(
-                                title = photo.title ?: "NASA APOD",
-                                explanation = photo.explanation ?: "",
-                                imageUrl = photo.hdurl ?: photo.url ?: "",
-                                date = photo.date ?: "",
-                                copyright = photo.copyright,
-                                mediaType = photo.mediaType
-                            )
-                        )
-                    }
+                    onPhotoClick = { openPhotoDetails(PhotoDetails(photo)) }
                 )
             }
         }
