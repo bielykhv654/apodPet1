@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -19,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -31,6 +33,7 @@ import com.example.apodpet.ui.common.NasaPhotoCard
 import com.example.apodpet.ui.common.ShowNetworkResponseNotification
 import com.example.apodpet.ui.common.SpaceBackground
 import com.example.apodpet.ui.theme.ThemeToggleButton
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -63,6 +66,10 @@ private fun RandomPhotoScreen(
     openPhotoDetails: (PhotoDetails) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+
     SpaceBackground(modifier = modifier) {
         ShowNetworkResponseNotification(
             state = state,
@@ -72,6 +79,7 @@ private fun RandomPhotoScreen(
             onClose = { onIntent(RandomPhotoStore.RandomPhotoIntent.ResetLoadingState) }
         )
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             contentPadding = WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical).asPaddingValues()
@@ -98,7 +106,12 @@ private fun RandomPhotoScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             ThemeToggleButton()
                             OutlinedButton(
-                                onClick = { onIntent(RandomPhotoStore.RandomPhotoIntent.LoadRandom) },
+                                onClick = {
+                                    onIntent(RandomPhotoStore.RandomPhotoIntent.LoadRandom)
+                                    coroutineScope.launch {
+                                        listState.animateScrollToItem(0)
+                                    }
+                                },
                                 enabled = state.loadingState != RandomPhotoStore.LoadingState.Loading
                             ) {
                                 Text("Get another🔄")
