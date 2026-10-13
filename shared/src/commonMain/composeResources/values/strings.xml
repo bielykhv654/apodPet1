@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello</string>
+    <string name="btn_retry">Retry</string>
+    <string name="error_serialization">Data parsing error</string>
+    <string name="error_server">Server error. Please try again later</string>
+    <string name="error_unknown">An unknown error occurred</string>
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_default">Something went wrong</string>
+    <string name="error_bad_request">Invalid request parameters</string>
+    <string name="error_forbidden">Invalid or missing API key</string>
+    <string name="error_not_found">Requested photo not found</string>
+    <string name="error_too_many_requests">Request limit exceeded. Try again later</string>
+</resources>
