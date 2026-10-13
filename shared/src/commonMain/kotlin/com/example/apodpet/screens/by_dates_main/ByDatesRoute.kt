@@ -125,7 +125,7 @@ private fun ByDatesScreen(
                             title = photo.title ?: "NASA APOD",
                             date = photo.date ?: "",
                             explanation = photo.explanation ?: "",
-                            imageUrl = if (photo.mediaType == "video") (photo.url ?: "") else (photo.hdurl ?: photo.url ?: ""),
+                            imageUrl = photo.hdurl ?: photo.url ?: "",
                             copyright = photo.copyright,
                             mediaType = photo.mediaType,
                             isSaved = isSaved,
@@ -135,7 +135,7 @@ private fun ByDatesScreen(
                                     PhotoDetails(
                                         title = photo.title ?: "NASA APOD",
                                         explanation = photo.explanation ?: "",
-                                        imageUrl = photo.url ?: "",
+                                        imageUrl = photo.hdurl ?: photo.url ?: "",
                                         date = photo.date ?: "",
                                         copyright = photo.copyright,
                                         mediaType = photo.mediaType

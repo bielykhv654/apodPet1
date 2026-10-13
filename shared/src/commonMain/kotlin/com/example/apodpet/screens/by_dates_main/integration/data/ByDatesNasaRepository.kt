@@ -98,7 +98,7 @@ private fun NasaPhotoDto.toEntity(): NasaPhotoEntity? {
         id = id,
         title = title ?: "NASA APOD",
         explanation = explanation ?: "",
-        url = url ?: "",
+        url = hdurl ?: url ?: "",
         hdurl = hdurl,
         date = date ?: "",
         mediaType = mediaType,

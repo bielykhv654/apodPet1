@@ -64,7 +64,7 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localPropertiesFile.inputStream().use { localProperties.load(it) }
 }
-fun getSecret(key: String, defaultValue: String = ""): String {
+fun getSecret(key: String, defaultValue: String = "DEMO_KEY"): String {
     return localProperties.getProperty(key)
         ?: providers.gradleProperty(key).orNull
         ?: System.getenv(key)
@@ -75,16 +75,16 @@ buildkonfig {
     packageName = "com.example.apodpet.core"
 
     defaultConfigs {
-        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "api.nasa.gov")
+        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "science.nasa.gov")
         buildConfigField(FieldSpec.Type.STRING, "NASA_API_KEY", getSecret("NASA_API_KEY"))
     }
     defaultConfigs("dev") {
-        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "api.nasa.gov")
+        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "science.nasa.gov")
         buildConfigField(FieldSpec.Type.STRING, "NASA_API_KEY", getSecret("NASA_API_KEY"))
     }
 
     defaultConfigs("stage") {
-        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "api.nasa.gov")
+        buildConfigField(FieldSpec.Type.STRING, "BASE_URL", "science.nasa.gov")
         buildConfigField(FieldSpec.Type.STRING, "NASA_API_KEY", getSecret("NASA_API_KEY"))
     }
 }

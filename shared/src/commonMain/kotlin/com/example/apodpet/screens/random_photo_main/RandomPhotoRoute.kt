@@ -117,7 +117,7 @@ private fun RandomPhotoScreen(
                     title = photo.title ?: "NASA APOD",
                     date = photo.date ?: "",
                     explanation = photo.explanation ?: "",
-                    imageUrl = photo.url ?: "",
+                    imageUrl = photo.hdurl ?: photo.url ?: "",
                     copyright = photo.copyright,
                     mediaType = photo.mediaType,
                     isSaved = isSaved,
@@ -127,7 +127,7 @@ private fun RandomPhotoScreen(
                             PhotoDetails(
                                 title = photo.title ?: "NASA APOD",
                                 explanation = photo.explanation ?: "",
-                                imageUrl = photo.url ?: "",
+                                imageUrl = photo.hdurl ?: photo.url ?: "",
                                 date = photo.date ?: "",
                                 copyright = photo.copyright,
                                 mediaType = photo.mediaType

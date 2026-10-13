@@ -45,7 +45,7 @@ class RandomPhotosRepositoryImpl(
             id = id,
             title = dto.title ?: "NASA APOD",
             explanation = dto.explanation ?: "",
-            url = dto.url ?: "",
+            url = dto.hdurl ?: dto.url ?: "",
             hdurl = dto.hdurl,
             date = dto.date ?: "",
             mediaType = dto.mediaType,
